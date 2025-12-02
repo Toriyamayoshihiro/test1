@@ -1,0 +1,37 @@
+@extends('layout.app')
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/detail.css') }}">
+@endsection
+
+@section('content')
+<img src="{{asset('storage/items/' . $item->image)}}" name="image" alt="img">
+<p class="item-name">{{$item->name}}</p>
+<p clsass="item-brand">{{$item->brand_name}}</p>
+<p class="item-price">￥{{$item->price}}</p>
+<p>{{$item->likes->count()}}</p>
+<p>{{$item->comments->count()}}</p>
+ <a href="/purchase/{$item->id}" class="add-button">
+  <span>購入手続きへ</span>
+</a>
+ <span class="form__label--item">商品説明</span>
+ <p>{{$item->description}}</p>
+ <span class="form__label--item">商品の情報</span>
+  <span>カテゴリー</span>
+  @foreach($item->categories as $category)
+  {{$category->name}}
+  @endforeach
+  <span>商品の情報</span> 
+  
+  {{$item->condition->name}}
+  
+  <p>コメント({{$item->comments_count}})</p>
+  @foreach($item->comments as $comment)
+  <p>{{$comment->content}}</p>
+  @endforeach
+
+  <form action="/item/{{$item->id}}/add" method="post">
+    @csrf
+     <span class="form__label--item">商品へのコメント</span>
+     <input type="text" name="comment" value="{{ old('content') }}">
+  </form>
+  @endsection
