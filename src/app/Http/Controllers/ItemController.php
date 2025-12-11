@@ -48,5 +48,25 @@ class ItemController extends Controller
     {
         $commtent = $request->comment;
     }
-   
+    public function sell(){
+        $categories = Category::all();
+        $conditions = Condition::all();
+        return view('sell',compact('categories','conditions'));
+    }
+    public function store(Request $request)
+    {
+        $dir = 'items';
+        $file_name = $request->file('image')->getClientOriginalName();
+        $request->file('image')->storeAs('public/' . $dir, $file_name);
+
+        $item_data = $request->only('name','brand_name','description','price','condition_id');
+        $item_data['image'] = $file_name;
+        $item_data['user_id'] = Auth::user()->id;
+        $item=Item::create($item_data);
+
+        $item_categories = $request->input('category_id',[]);
+        $item->categories()->attach($item_categories);
+        return redirect('/mypage');
+
+    }
 }

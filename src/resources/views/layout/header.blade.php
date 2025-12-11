@@ -1,6 +1,8 @@
 
 <header>
-  <h1 class="header__heading">COACHTECH</h1>
+  <h1 class="header__heading">
+    <a href="/">COACHTECH</a>
+  </h1>
  <div class="header">
     <form class="header__heading" action="/search" method="get">
         <input class="search-form__keyword-input" type="text" name="keyword" placeholder="何をお探しですか" value="{{request('keyword')}}">

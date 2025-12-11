@@ -1,12 +1,13 @@
 @extends('layout.app')
-@include('layout.header')
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
 @endsection
 
 @section('content')
-<img src="{{asset('storage/' . $profile->image)}}" name="image" alt="img">
-<p class="profile-name">{{$profile->user->name}}</p>
+
+<img src="{{asset('storage/profiles/' . ($user->profile->image ?? 'noimage.png')) }}" name="image" alt="img">
+<p class="user-name">{{$user->name}}</p>
 
 <a href="/mypage/profile" class="profile-button">
   <span>プロフィールを編集</span>
@@ -28,3 +29,4 @@
        </a>
 @endforeach
 @endif
+@endsection

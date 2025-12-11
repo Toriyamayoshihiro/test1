@@ -16,11 +16,11 @@
  <span class="form__label--item">商品説明</span>
  <p>{{$item->description}}</p>
  <span class="form__label--item">商品の情報</span>
-  <span>カテゴリー</span>
+  <p>カテゴリー</p>
   @foreach($item->categories as $category)
   {{$category->name}}
   @endforeach
-  <span>商品の情報</span> 
+  <p>商品の情報</p> 
   
   {{$item->condition->name}}
   
@@ -31,7 +31,7 @@
 
   <form action="/item/{{$item->id}}/add" method="post">
     @csrf
-     <span class="form__label--item">商品へのコメント</span>
-     <input type="text" name="comment" value="{{ old('content') }}">
+     <label for="add_comment"class="form__label--item">商品へのコメント</label>
+     <input type="text" name="comment" value="{{ old('content') }}" id="add_comment">
   </form>
   @endsection

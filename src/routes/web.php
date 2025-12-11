@@ -22,6 +22,8 @@ Route::middleware('auth')->group(function () {
      Route::post('/item/{item_id}/add', [ItemController::class, 'commentAdd']);
      Route::get('/mypage',[ProfileController::class, 'profile']);
      Route::get('/mypage/profile',[ProfileController::class, 'edit']);
+     Route::post('/mypage/profile/edit',[ProfileController::class, 'store']);
+     Route::patch('/mypage/profile/edit',[ProfileController::class, 'update']);
      Route::get('/sell',[ItemController::class, 'sell']);
-
+     Route::post('/item/upload',[ItemController::class, 'store']);
 });
