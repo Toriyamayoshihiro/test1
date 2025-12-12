@@ -10,7 +10,7 @@
 <p class="item-price">￥{{$item->price}}</p>
 <p>{{$item->likes->count()}}</p>
 <p>{{$item->comments->count()}}</p>
- <a href="/purchase/{$item->id}" class="add-button">
+ <a href="/purchase/{{$item->id}}" class="add-button">
   <span>購入手続きへ</span>
 </a>
  <span class="form__label--item">商品説明</span>

@@ -14,7 +14,7 @@
          <form action="/mypage/profile/edit" method="post" enctype="multipart/form-data">
           @csrf
           
-          <img src="{{asset('storage/profiles/' . ($user->profile->image ?? 'noimage.png')) }}" name="image" alt="img">
+          <img src="{{asset(($user->profile->image ?? asset('storage/profiles/noimage.png/'))) }}" name="image" alt="img">
          <label class="profile_image" for="image">画像を選択する</label>
          <input type="file" name="image" id="image">
     
@@ -24,20 +24,20 @@
            <p class="error-message">{{ $message }}</p>
          @enderror
 
-         <span class="form__label--rofile">郵便番号</span>
-         <input type="text" name="postal_code" placeholder="{{($profile->postal_code ?? '')}}">
+         <span class="form__label--profile">郵便番号</span>
+         <input type="text" name="postal_code" value="{{($profile->postal_code ?? '')}}">
          @error('postal_code')
            <p class="error-message">{{ $message }}</p>
          @enderror
 
-         <span class="form__label--rofile">住所</span>
-         <input type="text" name="address">
+         <span class="form__label--profile">住所</span>
+         <input type="text" name="address" value="{{($profile->address ?? '')}}">
          @error('address')
            <p class="error-message">{{ $message }}</p>
          @enderror
 
          <span class="form__label--profile">建物名</span>
-         <input type="text" name="building">
+         <input type="text" name="building" value="{{($profile->building ?? '')}}">
          @error('building')
            <p class="error-message">{{ $message }}</p>
          @enderror

@@ -27,9 +27,9 @@ class ProfileController extends Controller
          $user = User::find(Auth::id());
          $profile = $user->profile;
          if($profile){
-            $profile = Profile::all();       
+                 return view('profile_edit',compact('profile','user')); 
          }
-        return view('profile_edit',compact('profile','user'));
+        
     }
     public function store(Request $request)
     {
@@ -70,4 +70,9 @@ class ProfileController extends Controller
             }
             return redirect('/mypage');
         }
+    public function change()
+    {
+        
+        return view('address_edit');
+    }   
 }

@@ -10,6 +10,7 @@ use App\Models\Like;
 use App\Models\Condition;
 use App\Models\Category;
 use App\Models\Sold_item;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -47,6 +48,13 @@ class ItemController extends Controller
     public function addComment(Request $request ,$item_id)
     {
         $commtent = $request->comment;
+    }
+    public function purchase($item_id)
+    {
+        $item = Item::find($item_id);
+        $user = User::find(Auth::id());
+        $profile = $user->profile;
+        return view('purchase',compact('item','profile'));
     }
     public function sell(){
         $categories = Category::all();

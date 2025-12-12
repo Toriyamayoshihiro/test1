@@ -6,7 +6,7 @@
 
 @section('content')
 
-<img src="{{asset('storage/profiles/' . ($user->profile->image ?? 'noimage.png')) }}" name="image" alt="img">
+<img src="{{asset(($user->profile->image ?? asset('storage/profiles/noimage.png/'))) }}" name="image" alt="img">
 <p class="user-name">{{$user->name}}</p>
 
 <a href="/mypage/profile" class="profile-button">
