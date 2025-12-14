@@ -18,9 +18,10 @@ Route::get('/', [ItemController::class, 'index']);
 Route::get('/item/{item_id}', [ItemController::class, 'detail']);
 Route::get('/search',[ItemController::class, 'search']);
 Route::middleware('auth')->group(function () {
-     Route::get('/purchase/{item_id}', [ItemController::class, 'purchase']);
-     Route::post('/purchase/{item_id}', [ItemController::class, 'purchased']);
-     Route::get('/purchase/address/{item_id}', [ProfileController::class, 'change']);
+     Route::get('/purchase/{item_id}', [ItemController::class, 'purchase'])->name('purchase.item');
+     Route::post('/purchase/{item_id}', [ItemController::class, 'postPurchase']);
+     Route::get('/purchase/address/{item_id}', [ItemController::class, 'address_edit']);
+     Route::post('/purchase/address/{item_id}', [ItemController::class, 'address_store']);
      Route::post('/item/{item_id}/add', [ItemController::class, 'commentAdd']);
      Route::get('/mypage',[ProfileController::class, 'profile']);
      Route::get('/mypage/profile',[ProfileController::class, 'edit']);

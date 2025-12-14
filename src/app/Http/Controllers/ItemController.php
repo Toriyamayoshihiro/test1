@@ -56,6 +56,16 @@ class ItemController extends Controller
         $profile = $user->profile;
         return view('purchase',compact('item','profile'));
     }
+    public function postPurchase(Request $request ,$item_id)
+    {
+        $item = Item::find($item_id);
+        $user = Auth::user();
+        $sold_item = $request->only('postal_code','address','building');
+        $sold_item['user_id'] = $user->id;
+        $sold_item['item_id'] = $item->id;
+        Sold_item::create($sold_item);
+        return redirect('/mypage');
+    }
     public function sell(){
         $categories = Category::all();
         $conditions = Condition::all();
@@ -75,6 +85,21 @@ class ItemController extends Controller
         $item_categories = $request->input('category_id',[]);
         $item->categories()->attach($item_categories);
         return redirect('/mypage');
-
     }
+    public function address_edit($item_id)
+    {
+        $item = Item::find($item_id);
+        return view('address_edit',compact('item'));
+    }   
+    public function address_store(Request $request)
+    {
+        session()->put('purchase_address',[
+            'postal_code' => $request->postal_code,
+            'address' => $request->address,
+            'building' => $request->building,
+        ]);
+        $item_id = $request->id;
+        return redirect()->route('purchase.item',['item_id' =>$item_id]);
+    }
+
 }

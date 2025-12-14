@@ -70,9 +70,5 @@ class ProfileController extends Controller
             }
             return redirect('/mypage');
         }
-    public function change()
-    {
-        
-        return view('address_edit');
-    }   
+    
 }
