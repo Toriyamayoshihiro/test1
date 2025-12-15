@@ -33,5 +33,7 @@
     @csrf
      <label for="add_comment"class="form__label--item">商品へのコメント</label>
      <input type="text" name="comment" value="{{ old('content') }}" id="add_comment">
+     <input type="hidden" name="id" value="{{$item->id}}">
+     <button type="submit" class="button-comment">コメントを送信する</button>
   </form>
   @endsection

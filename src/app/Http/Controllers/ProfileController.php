@@ -6,25 +6,25 @@ use Illuminate\Http\Request;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\Item;
-use App\Models\Sold_item;
+use App\Models\SoldItem;
 use Illuminate\Support\Facades\Auth;
-
 
 class ProfileController extends Controller
 {
      public function profile(Request $request)
     {
-        $user = User::with('profile')->find(Auth::id());
-        
-        if($request->page==='buy'){
-            $items = Sold_item::where('user_id',Auth::user()->id)->get();
+        $user = Auth::user();
+        $type = $request->page ?? 'sell';
+
+        if($type==='buy'){
+            $products = SoldItem::with('item')->where('user_id',$user->id)->get();
         }else{
-            $items = Item::where('user_id',Auth::user()->id)->get();
+            $products = Item::where('user_id',$user->id)->get();
         }
-        return view('mypage',compact('items','user'));
+        return view('mypage',compact('products','user','type'));
     }
     public function edit(){
-         $user = User::find(Auth::id());
+         $user = Auth::user();
          $profile = $user->profile;
          if($profile){
                  return view('profile_edit',compact('profile','user')); 

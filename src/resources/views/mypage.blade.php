@@ -18,15 +18,27 @@
 
     <button type="submit" name="page" value="buy">購入した商品</button>
 </form>
-@if ($items->isEmpty())
+@if ($products->isEmpty())
     <p>データがありません。</p>
 @else
-@foreach($items as $item)
-    
-       <a href="/item/{{$item->id}}" class="card">
-         <img src="{{asset('storage/items/' . $item->image)}}" alt="img">
-           <p>{{$item->name}}</p>
-       </a>
-@endforeach
+    @if($type==='sell')
+        @foreach($products as $product)
+            
+              <a href="/item/{{$product->id}}" class="card">
+                <img src="{{asset('storage/items/' . $product->image)}}" alt="img">
+                  <p>{{$product->name}}</p>
+              </a>
+        @endforeach
+    @else
+        @foreach($products as $product)
+            
+              <a href="/item/{{$product->item->id}}" class="card">
+                <img src="{{asset('storage/items/' . $product->item->image)}}" alt="img">
+                  <p>{{$product->item->name}}</p>
+              </a>
+        @endforeach
+    @endif
 @endif
+
+
 @endsection

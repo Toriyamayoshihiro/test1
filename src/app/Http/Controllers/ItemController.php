@@ -9,7 +9,7 @@ use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Condition;
 use App\Models\Category;
-use App\Models\Sold_item;
+use App\Models\SoldItem;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,7 +34,8 @@ class ItemController extends Controller
     public function detail($item_id)   
     {
         $item = Item::with('categories','condition','likes','comments')->find($item_id);
-        return view('detail',compact('item'));
+        $comments = Comment::where('item_id',$item_id)->get();
+        return view('detail',compact('item','comments'));
     }
     public function search(Request $request)
     {
@@ -45,9 +46,14 @@ class ItemController extends Controller
          $items = $query->all();   
          return view('item',compact('items'));
     }
-    public function addComment(Request $request ,$item_id)
+    public function commentAdd(Request $request)
     {
-        $commtent = $request->comment;
+        $user = Auth::user();
+        $comment['content'] = $request->comment;
+        $comment['user_id'] = $user->id;
+        $comment['item_id'] = $request->id;
+        Comment::create($comment);
+        return redirect()->route('detail.item',['item_id' =>$request->id]);
     }
     public function purchase($item_id)
     {

@@ -36,6 +36,6 @@ class Item extends Model
     }
     public function sold_item()
     {
-        return $this->hasOne(Sold_item::class);
+        return $this->hasOne(SoldItem::class);
     }
 }

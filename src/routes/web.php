@@ -15,7 +15,7 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', [ItemController::class, 'index']);
-Route::get('/item/{item_id}', [ItemController::class, 'detail']);
+Route::get('/item/{item_id}', [ItemController::class, 'detail'])->name('detail.item');
 Route::get('/search',[ItemController::class, 'search']);
 Route::middleware('auth')->group(function () {
      Route::get('/purchase/{item_id}', [ItemController::class, 'purchase'])->name('purchase.item');
