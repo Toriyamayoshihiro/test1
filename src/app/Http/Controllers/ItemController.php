@@ -35,7 +35,8 @@ class ItemController extends Controller
     {
         $item = Item::with('categories','condition','likes','comments')->find($item_id);
         $comments = Comment::where('item_id',$item_id)->get();
-        return view('detail',compact('item','comments'));
+        $user = Auth::user();
+        return view('detail',compact('item','comments','user'));
     }
     public function search(Request $request)
     {
@@ -43,7 +44,7 @@ class ItemController extends Controller
          if(!empty($request->keyword)) {
             $query->where('name' ,'like', '%' . $request->keyword . '%');
             }
-         $items = $query->all();   
+         $items = $query->get();   
          return view('item',compact('items'));
     }
     public function commentAdd(Request $request)

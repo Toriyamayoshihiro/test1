@@ -10,9 +10,11 @@
 <p class="item-price">￥{{$item->price}}</p>
 <p>{{$item->likes->count()}}</p>
 <p>{{$item->comments->count()}}</p>
+@if($item->user_id !== $user->id)
  <a href="/purchase/{{$item->id}}" class="add-button">
   <span>購入手続きへ</span>
 </a>
+@endif
  <span class="form__label--item">商品説明</span>
  <p>{{$item->description}}</p>
  <span class="form__label--item">商品の情報</span>
@@ -24,7 +26,7 @@
   
   {{$item->condition->name}}
   
-  <p>コメント({{$item->comments_count}})</p>
+  <p>コメント({{$item->comments->count()}})</p>
   @foreach($item->comments as $comment)
   <p>{{$comment->content}}</p>
   @endforeach

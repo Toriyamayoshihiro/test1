@@ -28,7 +28,7 @@ class ProfileController extends Controller
          $profile = $user->profile;
          if($profile){
                  return view('profile_edit',compact('profile','user')); 
-         }
+         }return view('profile_edit',compact('user'));
         
     }
     public function store(Request $request)
