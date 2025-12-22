@@ -33,10 +33,16 @@ class ItemController extends Controller
     }
     public function detail($item_id)   
     {
-        $item = Item::with('categories','condition','likes','comments')->find($item_id);
-        $comments = Comment::where('item_id',$item_id)->get();
+        $item = Item::with('categories','condition','likedUsers','comments')->find($item_id);
+        $comments = Comment::with('user')->where('item_id',$item_id)->get();
         $user = Auth::user();
-        return view('detail',compact('item','comments','user'));
+        $isLiked = false;
+        if ($user) {
+            $isLiked = $user->likedItems()
+                            ->whereKey($item_id)
+                            ->exists();
+        }
+        return view('detail',compact('item','comments','user','isLiked'));
     }
     public function search(Request $request)
     {
@@ -70,7 +76,7 @@ class ItemController extends Controller
         $sold_item = $request->only('postal_code','address','building');
         $sold_item['user_id'] = $user->id;
         $sold_item['item_id'] = $item->id;
-        Sold_item::create($sold_item);
+        SoldItem::create($sold_item);
         return redirect('/mypage');
     }
     public function sell(){
@@ -108,5 +114,16 @@ class ItemController extends Controller
         $item_id = $request->id;
         return redirect()->route('purchase.item',['item_id' =>$item_id]);
     }
-
+    public function like($item_id)
+    {
+        $user = Auth::user();
+        $isLiked = $user->likedItems()->whereKey($item_id)->exists();
+        
+        if($isLiked){
+            $isLiked = $user->likedItems()->detach($item_id);
+        }else {
+            $user->likedItems()->attach($item_id);
+        }
+        return redirect()->route('detail.item',['item_id' =>$item_id]);
+    }
 }

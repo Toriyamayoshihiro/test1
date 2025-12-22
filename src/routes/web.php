@@ -23,10 +23,12 @@ Route::middleware('auth')->group(function () {
      Route::get('/purchase/address/{item_id}', [ItemController::class, 'address_edit']);
      Route::post('/purchase/address/{item_id}', [ItemController::class, 'address_store']);
      Route::post('/item/{item_id}/add', [ItemController::class, 'commentAdd']);
+     Route::post('/item/{item_id}/like',[ItemController::class,'like']);
      Route::get('/mypage',[ProfileController::class, 'profile']);
      Route::get('/mypage/profile',[ProfileController::class, 'edit']);
      Route::post('/mypage/profile/edit',[ProfileController::class, 'store']);
      Route::patch('/mypage/profile/edit',[ProfileController::class, 'update']);
      Route::get('/sell',[ItemController::class, 'sell']);
      Route::post('/item/upload',[ItemController::class, 'store']);
+    
 });
