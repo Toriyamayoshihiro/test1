@@ -18,18 +18,23 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
+        $type = $request->tab ?? '';
        if (Auth::check()) {
-        if($request->tab==='mylist'){
-            $items = Item::where('user_id',Auth::user()->id)->get();
+        if($type==='mylist'){
+            
+            $products = Auth::user()->likedItems()
+                                    ->with('sold_item')->get();
         }else{
-            $items = Item::where('user_id','!=',Auth::user()->id)->get();
+            $products = Item::where('user_id','!=',Auth::id())
+                              ->with('sold_item')->get();
+            
         }
-       }elseif($request->tab==='mylist'){
+       }elseif($type==='mylist'){
         return redirect()->route('login');
        }else{
-         $items = Item::all();
+         $products = Item::all();
        }
-       return view('item',compact('items'));
+       return view('item',compact('products','type'));
     }
     public function detail($item_id)   
     {
@@ -50,8 +55,8 @@ class ItemController extends Controller
          if(!empty($request->keyword)) {
             $query->where('name' ,'like', '%' . $request->keyword . '%');
             }
-         $items = $query->get();   
-         return view('item',compact('items'));
+         $products = $query->get();   
+         return view('item',compact('products'));
     }
     public function commentAdd(Request $request)
     {
@@ -124,6 +129,9 @@ class ItemController extends Controller
         }else {
             $user->likedItems()->attach($item_id);
         }
-        return redirect()->route('detail.item',['item_id' =>$item_id]);
+        return response()->json([
+        'liked' => true
+        ]);
+
     }
 }

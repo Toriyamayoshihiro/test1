@@ -2,29 +2,35 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/detail.css') }}">
 @endsection
-<script src="{{ asset('js/like.js') }}"></script>
+
 @section('content')
 <img src="{{asset('storage/items/' . $item->image)}}" name="image" alt="img">
 <p class="item-name">{{$item->name}}</p>
 <p clsass="item-brand">{{$item->brand_name}}</p>
 <p class="item-price">￥{{$item->price}}</p>
-<form action="/item/{{$item->id}}/like" method="post">
-  @csrf
+
 <button 
 id="like-btn"
 data-item-id="{{$item->id}}"
 class="heart{{$isLiked ? 'liked' : '' }}">
 ♡
 </button>
-</form>
+
 <p>{{$item->likedUsers->count()}}</p>
 <p>💬</p>
 <p>{{$item->comments->count()}}</p>
+@auth
 @if($item->user_id !== $user->id)
  <a href="/purchase/{{$item->id}}" class="add-button">
   <span>購入手続きへ</span>
 </a>
 @endif
+@endauth
+@guest
+<a href="/purchase/{{$item->id}}" class="add-button">
+  <span>購入手続きへ</span>
+</a>
+@endguest
  <span class="form__label--item">商品説明</span>
  <p>{{$item->description}}</p>
  <span class="form__label--item">商品の情報</span>
@@ -52,4 +58,5 @@ class="heart{{$isLiked ? 'liked' : '' }}">
      <input type="hidden" name="id" value="{{$item->id}}">
      <button type="submit" class="button-comment">コメントを送信する</button>
   </form>
+  <script src="{{ asset('js/likes.js') }}"></script>
   @endsection

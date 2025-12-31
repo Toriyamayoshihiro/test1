@@ -4,7 +4,7 @@ if (!btn) return;
 btn.addEventListener('click', function () {
     const itemId = btn.dataset.itemId;
 
-    fetch(`/items/${itemId}/like`, {
+    fetch(`/item/${itemId}/like`, {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': document

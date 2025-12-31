@@ -5,19 +5,21 @@
 
 @section('content')
 <form action="/" method="get" >
-    <button type="submit">おすすめ</button>
+    <button type="submit" name="tab" value="">おすすめ</button>
 
     <button type="submit" name="tab" value="mylist">マイリスト</button>
 </form>
 
-@if ($items->isEmpty())
+@if ($products->isEmpty())
     <p>データがありません。</p>
 @else
-    @foreach($items as $item)
-    
-       <a href="/item/{{$item->id}}" class="card">
-         <img src="{{asset('storage/items/' . $item->image)}}" alt="img">
-           <p>{{$item->name}}</p>
+    @foreach($products as $product)
+       <a href="/item/{{$product->id}}" class="card">
+         <img src="{{asset('storage/items/' . $product->image)}}" alt="img">
+         @if($product->sold_item)
+           <span>SOLD</span>
+         @endif
+           <p>{{$product->name}}</p>
        </a>
     @endforeach
 @endif
