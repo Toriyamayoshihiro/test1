@@ -12,17 +12,22 @@
 <p>支払方法</p>
 <form action="/purchase/{{$item->id}}" method="post">
     @csrf
-    <select name="pay">
+    <select id="pay-select" name="pay">
         <option value="" disabled selected style="display:none;">選択してください</option>
         <option value="pay">コンビニ払い</option>
         <option value="credit">カード支払い</option>
     </select>
+    <div class="summary">
+       <p>商品代金：¥<span id="summary-price">{{ number_format($item->price) }}</span></p>
+       <p>支払い方法：<span id="summary-pay">未選択</span></p>
+    </div>
+
 <p>配送先</p>
 <a href="/purchase/address/{{$item->id}}" class="address_change">変更する</a>
 @if(session()->has('purchase_address'))
 <input type="text" name="postal_code" value="{{session('purchase_address.postal_code')}}" readonly>
 @else
-<input type="text " name="postal_code" value="{{$profile->postal_code}}" readonly>
+<input type="text" name="postal_code" value="{{$profile->postal_code}}" readonly>
 @endif
 @if(session()->has('purchase_address'))
 <input type="text" name="address" value="{{session('purchase_address.address')}}" readonly>
@@ -36,4 +41,5 @@
 @endif
 <button type="submit" class="button-purchase">購入する</button>
 </form>
+<script src="{{ asset('js/pay-select.js')}}"></script>
 @endsection

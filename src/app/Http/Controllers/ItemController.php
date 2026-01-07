@@ -12,6 +12,10 @@ use App\Models\Category;
 use App\Models\SoldItem;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CommentRequest;
+use App\Http\Requests\PurchaseRequest;
+use App\Http\Requests\AddressRequest;
+use App\Http\Requests\ExhibitionRequest;
 
 
 class ItemController extends Controller
@@ -58,7 +62,7 @@ class ItemController extends Controller
          $products = $query->get();   
          return view('item',compact('products'));
     }
-    public function commentAdd(Request $request)
+    public function commentAdd(CommentRequest $request)
     {
         $user = Auth::user();
         $comment['content'] = $request->comment;
@@ -74,7 +78,7 @@ class ItemController extends Controller
         $profile = $user->profile;
         return view('purchase',compact('item','profile'));
     }
-    public function postPurchase(Request $request ,$item_id)
+    public function postPurchase(PurchaseRequest $request ,$item_id)
     {
         $item = Item::find($item_id);
         $user = Auth::user();
@@ -82,14 +86,14 @@ class ItemController extends Controller
         $sold_item['user_id'] = $user->id;
         $sold_item['item_id'] = $item->id;
         SoldItem::create($sold_item);
-        return redirect('/mypage');
+        return redirect('/');
     }
     public function sell(){
         $categories = Category::all();
         $conditions = Condition::all();
         return view('sell',compact('categories','conditions'));
     }
-    public function store(Request $request)
+    public function store(ExhibitionRequest $request)
     {
         $dir = 'items';
         $file_name = $request->file('image')->getClientOriginalName();
@@ -109,7 +113,7 @@ class ItemController extends Controller
         $item = Item::find($item_id);
         return view('address_edit',compact('item'));
     }   
-    public function address_store(Request $request)
+    public function address_store(AddressRequest $request)
     {
         session()->put('purchase_address',[
             'postal_code' => $request->postal_code,

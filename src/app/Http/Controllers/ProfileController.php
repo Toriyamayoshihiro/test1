@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Item;
 use App\Models\SoldItem;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ProfileRequest;
+
 
 class ProfileController extends Controller
 {
@@ -31,7 +33,7 @@ class ProfileController extends Controller
          }return view('profile_edit',compact('user'));
         
     }
-    public function store(Request $request)
+    public function store(ProfileRequest $request)
     {
         if($request->hasFile('image')){
             $dir = 'profiles';
