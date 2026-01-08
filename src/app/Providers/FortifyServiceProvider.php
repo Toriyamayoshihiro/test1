@@ -14,6 +14,9 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use App\Http\Requests\LoginRequest;
+use Laravel\Fortify\Http\Requests\RegisterRequest as FortifyRegisterRequest;
+use App\Http\Requests\RegisterRequest;
+use Laravel\Fortify\Contracts\RegisterResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -22,7 +25,12 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+         $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
+        public function toResponse($request)
+        {
+            return redirect('/mypage/profile');
+        }
+    });
     }
 
     /**
@@ -44,6 +52,7 @@ class FortifyServiceProvider extends ServiceProvider
 
          return Limit::perMinute(10)->by($email . $request->ip());
      });
-     //$this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
+     $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
+     $this->app->bind(FortifyRegisterRequest::class, RegisterRequest::class);
     }
 }

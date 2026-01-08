@@ -17,9 +17,22 @@
         <option value="pay">コンビニ払い</option>
         <option value="credit">カード支払い</option>
     </select>
+    <div class="form__error">
+          @error('pay')
+          {{ $message }}
+          @enderror
+        </div>
     <div class="summary">
-       <p>商品代金：¥<span id="summary-price">{{ number_format($item->price) }}</span></p>
-       <p>支払い方法：<span id="summary-pay">未選択</span></p>
+        <table>
+            <tr>
+                <th>商品代金¥<span id="summary-price">{{ number_format($item->price) }}</span></th>
+            </tr>
+
+            <tr>
+                <th>支払い方法<span id="summary-pay">未選択</span></th>
+            </tr>
+
+        </table>
     </div>
 
 <p>配送先</p>
