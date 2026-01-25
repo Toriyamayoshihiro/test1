@@ -10,12 +10,12 @@
 <p class="purchase_item_price">{{$item->price}}</p>
 
 <p>支払方法</p>
-<form action="/purchase/{{$item->id}}" method="post">
+<form action="/purchase/{{$item->id}}/stripe" method="post">
     @csrf
     <select id="pay-select" name="pay">
         <option value="" disabled selected style="display:none;">選択してください</option>
-        <option value="pay">コンビニ払い</option>
-        <option value="credit">カード支払い</option>
+        <option value="konbini">コンビニ払い</option>
+        <option value="card">カード支払い</option>
     </select>
     <div class="form__error">
           @error('pay')

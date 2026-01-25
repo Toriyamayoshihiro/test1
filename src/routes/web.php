@@ -19,7 +19,10 @@ Route::get('/item/{item_id}', [ItemController::class, 'detail'])->name('detail.i
 Route::get('/search',[ItemController::class, 'search']);
 Route::middleware('auth')->group(function () {
      Route::get('/purchase/{item_id}', [ItemController::class, 'purchase'])->name('purchase.item');
-     Route::post('/purchase/{item_id}', [ItemController::class, 'postPurchase']);
+     Route::post('/purchase/{item_id}/stripe', [ItemController::class, 'redirectToStripe'])->name('purchase.stripe');
+     Route::get('/purchase/success/{item_id}', [ItemController::class, 'success'])->name('purchase.success');
+     Route::get('/purchase/cancel', [ItemController::class, 'cancel'])->name('purchase.cancel');
+     //Route::post('/purchase/{item_id}', [ItemController::class, 'postPurchase']);
      Route::get('/purchase/address/{item_id}', [ItemController::class, 'address_edit']);
      Route::post('/purchase/address/{item_id}', [ItemController::class, 'address_store']);
      Route::post('/item/{item_id}/add', [ItemController::class, 'commentAdd']);

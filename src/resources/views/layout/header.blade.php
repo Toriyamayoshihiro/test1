@@ -3,7 +3,7 @@
   
  <div class="header">
     <form class="header__heading" action="/search" method="get">
-        <input class="search-form__keyword-input" type="text" name="keyword" placeholder="何をお探しですか" value="{{request('keyword')}}">
+        <input class="search-form__keyword-input" type="text" name="keyword" placeholder="何をお探しですか" value="{{old('keyword')}}">
         <button type="submit" class="search=button"></button>
     </form>
     

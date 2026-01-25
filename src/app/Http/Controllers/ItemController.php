@@ -16,6 +16,7 @@ use App\Http\Requests\CommentRequest;
 use App\Http\Requests\PurchaseRequest;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\ExhibitionRequest;
+use Stripe\StripeClient;
 
 
 class ItemController extends Controller
@@ -23,11 +24,16 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $type = $request->tab ?? '';
+        $keyword = session('keyword');
        if (Auth::check()) {
         if($type==='mylist'){
             
-            $products = Auth::user()->likedItems()
-                                    ->with('sold_item')->get();
+            $query = Auth::user()->likedItems()
+                                    ->with('sold_item');
+            if($keyword){
+                $query->where('name' ,'like', '%' . $keyword . '%');
+            }
+            $products =  $query->get();
         }else{
             $products = Item::where('user_id','!=',Auth::id())
                               ->with('sold_item')->get();
@@ -59,7 +65,8 @@ class ItemController extends Controller
          if(!empty($request->keyword)) {
             $query->where('name' ,'like', '%' . $request->keyword . '%');
             }
-         $products = $query->get();   
+         $products = $query->get();  
+         session(['keyword' => $request->keyword]);
          return view('item',compact('products'));
     }
     public function commentAdd(CommentRequest $request)
@@ -78,15 +85,56 @@ class ItemController extends Controller
         $profile = $user->profile;
         return view('purchase',compact('item','profile'));
     }
-    public function postPurchase(PurchaseRequest $request ,$item_id)
+    public function redirectToStripe(PurchaseRequest $request, $item_id)
     {
-        $item = Item::find($item_id);
-        $user = Auth::user();
-        $sold_item = $request->only('postal_code','address','building');
-        $sold_item['user_id'] = $user->id;
-        $sold_item['item_id'] = $item->id;
-        SoldItem::create($sold_item);
-        return redirect('/');
+    $item = Item::findOrFail($item_id);
+    $pay_type = $request->pay;
+    session()->put('purchase_address', $request->only(
+        'postal_code', 'address', 'building'
+    ));
+
+    $stripe = new StripeClient(config('services.stripe.secret'));
+
+    $session = $stripe->checkout->sessions->create([
+        'payment_method_types' => [$pay_type],
+        'line_items' => [[
+            'price_data' => [
+                'currency' => 'jpy',
+                'unit_amount' => $item->price,
+                'product_data' => [
+                    'name' => $item->name,
+                ],
+            ],
+            'quantity' => 1,
+        ]],
+        'mode' => 'payment',
+        'success_url' => route('purchase.success', ['item_id' => $item->id]),
+        'cancel_url' => route('purchase.cancel'),
+    ]);
+
+    return redirect($session->url);
+    }
+    
+    public function success($item_id)
+    {
+    $item = Item::find($item_id);
+    $user = Auth::user();
+    $address = session('purchase_address');
+    if (!$address) {
+        abort(404);
+    }
+
+    SoldItem::create([
+        'postal_code' => $address['postal_code'],
+        'address'     => $address['address'],
+        'building'    => $address['building'],
+        'user_id'     => $user->id,
+        'item_id'     => $item->id,
+    ]);
+
+    session()->forget('purchase_address');
+
+    return redirect('/');
     }
     public function sell(){
         $categories = Category::all();
@@ -138,4 +186,14 @@ class ItemController extends Controller
         ]);
 
     }
+    //public function postPurchase(PurchaseRequest $request ,$item_id)
+    //{
+    //    $item = Item::find($item_id);
+    //    $user = Auth::user();
+    //    $sold_item = $request->only('postal_code','address','building');
+    //    $sold_item['user_id'] = $user->id;
+    //    $sold_item['item_id'] = $item->id;
+    //    SoldItem::create($sold_item);
+    //    return redirect('/');
+    //}
 }
