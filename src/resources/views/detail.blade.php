@@ -5,6 +5,9 @@
 
 @section('content')
 <img src="{{asset('storage/items/' . $item->image)}}" name="image" alt="img">
+@if($item->sold_item)
+<span>SOLD</span>
+@endif
 <p class="item-name">{{$item->name}}</p>
 <p clsass="item-brand">{{$item->brand_name}}</p>
 <p class="item-price">￥{{$item->price}}</p>
@@ -20,7 +23,7 @@ class="heart{{$isLiked ? 'liked' : '' }}">
 <p>💬</p>
 <p>{{$item->comments->count()}}</p>
 @auth
-@if($item->user_id !== $user->id)
+@if($item->user_id !== $user->id && !$item->sold_item)
  <a href="/purchase/{{$item->id}}" class="add-button">
   <span>購入手続きへ</span>
 </a>

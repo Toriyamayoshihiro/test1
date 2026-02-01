@@ -17,7 +17,7 @@ use App\Http\Controllers\ProfileController;
 Route::get('/', [ItemController::class, 'index']);
 Route::get('/item/{item_id}', [ItemController::class, 'detail'])->name('detail.item');
 Route::get('/search',[ItemController::class, 'search']);
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','verified'])->group(function () {
      Route::get('/purchase/{item_id}', [ItemController::class, 'purchase'])->name('purchase.item');
      Route::post('/purchase/{item_id}/stripe', [ItemController::class, 'redirectToStripe'])->name('purchase.stripe');
      Route::get('/purchase/success/{item_id}', [ItemController::class, 'success'])->name('purchase.success');

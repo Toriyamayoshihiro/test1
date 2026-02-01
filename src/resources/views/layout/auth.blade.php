@@ -16,12 +16,6 @@
   <h1 class="header__heading">
     <a href="/">COACHTECH</a>
   </h1>
-  <div class="app">
-      @include('layout.header')
-    <div class="content">
+  <div class="content">
       @yield('content')
     </div>
-  </div>
-</body>
-
-</html>

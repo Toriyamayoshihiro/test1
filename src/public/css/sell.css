@@ -1,0 +1,120 @@
+form {
+max-width: 680px;
+margin: 0 auto;
+padding: 40px 0;
+font-family: sans-serif;
+}
+.sell__heading {
+text-align: center;
+margin: 40px 0;
+}
+
+.sell__heading h2 {
+font-size: 24px;
+font-weight: bold;
+}
+
+form > p {
+font-size: 18px;
+font-weight: bold;
+margin: 32px 0 16px;
+border-bottom: 1px solid #ddd;
+padding-bottom: 8px;
+}
+
+/* 画像選択エリア */
+label[for="item_image"] {
+display: inline-block;
+padding: 10px 24px;
+border: 1px solid #ff5a5a;
+color: #ff5a5a;
+border-radius: 6px;
+cursor: pointer;
+margin: 16px 0;
+}
+
+/* inputは非表示 */
+input.image {
+display: none;
+}
+
+/* checkbox自体は非表示 */
+input[type="checkbox"] {
+display: none;
+}
+
+/* カテゴリーラベル */
+input[type="checkbox"] + label {
+display: inline-block;
+padding: 6px 14px;
+margin: 6px 6px 0 0;
+border: 1px solid #ff5a5a;
+border-radius: 20px;
+font-size: 13px;
+color: #ff5a5a;
+cursor: pointer;
+}
+
+/* 選択時 */
+input[type="checkbox"]:checked + label {
+background-color: #ff5a5a;
+color: #fff;
+}
+
+select {
+width: 100%;
+padding: 10px;
+border-radius: 6px;
+border: 1px solid #ccc;
+margin-bottom: 24px;
+}
+
+.text,
+textarea {
+width: 100%;
+padding: 10px;
+margin: 8px 0 20px;
+border-radius: 6px;
+border: 1px solid #ccc;
+font-size: 14px;
+}
+
+textarea {
+resize: none;
+}
+
+label[for="price"] {
+display: block;
+}
+
+label[for="price"] + span {
+margin-right: 4px;
+font-size: 16px;
+}
+
+.error-message {
+color: #ff5a5a;
+font-size: 13px;
+margin-top: -12px;
+margin-bottom: 16px;
+}
+
+.button-content {
+margin-top: 40px;
+}
+
+.button-register {
+width: 100%;
+padding: 14px 0;
+background-color: #ff5a5a;
+color: #fff;
+border: none;
+border-radius: 6px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+}
+
+.button-register:hover {
+opacity: 0.9;
+}

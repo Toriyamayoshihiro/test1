@@ -32,6 +32,8 @@ class ItemController extends Controller
                                     ->with('sold_item');
             if($keyword){
                 $query->where('name' ,'like', '%' . $keyword . '%');
+                session()->forget('keyword');
+
             }
             $products =  $query->get();
         }else{
@@ -48,7 +50,7 @@ class ItemController extends Controller
     }
     public function detail($item_id)   
     {
-        $item = Item::with('categories','condition','likedUsers','comments')->find($item_id);
+        $item = Item::with('categories','condition','likedUsers','comments','sold_item')->find($item_id);
         $comments = Comment::with('user')->where('item_id',$item_id)->get();
         $user = Auth::user();
         $isLiked = false;
@@ -80,9 +82,15 @@ class ItemController extends Controller
     }
     public function purchase($item_id)
     {
-        $item = Item::find($item_id);
+        $item = Item::with('sold_item')->find($item_id);
         $user = User::find(Auth::id());
         $profile = $user->profile;
+        if($item->user_id === $user->id){
+            abort(403);
+        }
+        if($item->sold_item){
+            abort(403,'この商品はすでに購入されています');
+        }    
         return view('purchase',compact('item','profile'));
     }
     public function redirectToStripe(PurchaseRequest $request, $item_id)
