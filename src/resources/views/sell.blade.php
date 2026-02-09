@@ -23,7 +23,7 @@
       <input type="checkbox" name="item_category[]" value="{{$category->id}}" id="{{$category->id}}" >
       <label for="{{$category->id}}">{{$category->name}}</label>
      @endforeach
-     @error('category')
+     @error('item_category')
         <p class="error-message">{{ $message }}</p>
      @enderror
 

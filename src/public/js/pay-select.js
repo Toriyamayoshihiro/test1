@@ -1,13 +1,18 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const paySelect = document.getElementById('pay-select');
-    const summaryPay = document.getElementById('summary-pay');
+document.addEventListener('DOMContentLoaded', () => {
+const select = document.getElementById('pay-select');
+const summaryPay = document.getElementById('summary-pay');
+if (!select || !summaryPay) return;
 
-    paySelect.addEventListener('change', function () {
-        if (this.value === 'pay') {
-            summaryPay.textContent = 'コンビニ払い';
-        } else if (this.value === 'credit') {
-            summaryPay.textContent = 'カード支払い';
-        }
-    });
+const payLabel = {
+konbini: 'コンビニ払い',
+card: 'カード支払い',
+};
+
+const render = () => {
+summaryPay.textContent = payLabel[select.value] ?? '未選択';
+};
+
+render();
+select.addEventListener('change', render);
+select.addEventListener('input', render);
 });
-

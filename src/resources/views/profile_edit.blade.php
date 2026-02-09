@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/profile.edit.css') }}">
+<link rel="stylesheet" href="{{ asset('css/profile_edit.css') }}">
 @endsection
 
 @section('content')
@@ -15,10 +15,10 @@
           @csrf
           
           <img src="{{asset(($user->profile->image ?? asset('storage/profiles/noimage.png/'))) }}" name="image" alt="img">
-         <label class="profile_image" for="image">画像を選択する</label>
+         <label class="profile_image__button" for="image">画像を選択する</label>
          <input type="file" name="image" id="image">
     
-         <span class="form__label--rofile">ユーザー名</span>
+         <span class="form__label--profile">ユーザー名</span>
          <input type="text" name="name" value="{{$user->name}}">
          @error('name')
            <p class="error-message">{{ $message }}</p>

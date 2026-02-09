@@ -1,0 +1,73 @@
+.auth-body {
+background: #222;
+min-height: 100vh;
+margin: 0;
+}
+
+.auth-header {
+background: #000;
+padding: 15px 40px;
+}
+
+.auth-header__logo {
+color: #fff;
+font-size: 22px;
+}
+
+.auth-main {
+display: flex;
+justify-content: center;
+padding: 60px 0;
+}
+
+.register-form__content {
+background: #fff;
+width: 500px;
+padding: 40px 60px;
+border-radius: 4px;
+}
+
+.register-form__heading {
+text-align: center;
+margin-bottom: 40px;
+font-size: 22px;
+}
+
+.form__group {
+margin-bottom: 25px;
+}
+
+.form__label--item {
+display: block;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+.form__input--text input {
+width: 100%;
+padding: 12px;
+border: 1px solid #ccc;
+border-radius: 3px;
+}
+
+.form__button-submit {
+width: 100%;
+background: #ff5b5b;
+color: #fff;
+border: none;
+padding: 14px;
+font-size: 16px;
+border-radius: 3px;
+cursor: pointer;
+}
+
+.login__link {
+margin-top: 20px;
+text-align: center;
+}
+
+.login__button-submit {
+color: #0073cc;
+font-size: 14px;
+text-decoration: none;
+}

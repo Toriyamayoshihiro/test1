@@ -8,6 +8,9 @@
 <p>登録していただいたメールアドレスに認証メールを送付しました。
     メール認証を完了してください。
 </p>
+<div class="mail-verify__link">
+    <a href="http://localhost:8025" target="brank" rel="nopener">認証はこちらから</a>
+</div>
 <form action="{{route('verification.send')}}"  method="post">
     @csrf
     <button type="submit">

@@ -17,6 +17,7 @@ use App\Http\Requests\PurchaseRequest;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\ExhibitionRequest;
 use Stripe\StripeClient;
+use Illuminate\Support\Facades\Log;
 
 
 class ItemController extends Controller
@@ -42,7 +43,9 @@ class ItemController extends Controller
             
         }
        }elseif($type==='mylist'){
-        return redirect()->route('login');
+         
+         $products = collect();
+        return view('item',compact('products'));
        }else{
          $products = Item::all();
        }
@@ -50,7 +53,7 @@ class ItemController extends Controller
     }
     public function detail($item_id)   
     {
-        $item = Item::with('categories','condition','likedUsers','comments','sold_item')->find($item_id);
+        $item = Item::with('categories','condition','likedUsers','comments','sold_item')->findOrFail($item_id);
         $comments = Comment::with('user')->where('item_id',$item_id)->get();
         $user = Auth::user();
         $isLiked = false;
@@ -74,7 +77,7 @@ class ItemController extends Controller
     public function commentAdd(CommentRequest $request)
     {
         $user = Auth::user();
-        $comment['content'] = $request->comment;
+        $comment['content'] = $request->content;
         $comment['user_id'] = $user->id;
         $comment['item_id'] = $request->id;
         Comment::create($comment);
@@ -152,15 +155,16 @@ class ItemController extends Controller
     public function store(ExhibitionRequest $request)
     {
         $dir = 'items';
+        $file = $request->file('image');
         $file_name = $request->file('image')->getClientOriginalName();
-        $request->file('image')->storeAs('public/' . $dir, $file_name);
+        $file->storeAs($dir, $file_name, 'public');
 
         $item_data = $request->only('name','brand_name','description','price','condition_id');
         $item_data['image'] = $file_name;
         $item_data['user_id'] = Auth::user()->id;
         $item=Item::create($item_data);
 
-        $item_categories = $request->input('category_id',[]);
+        $item_categories = $request->input('item_category',[]);
         $item->categories()->attach($item_categories);
         return redirect('/mypage');
     }
@@ -179,18 +183,31 @@ class ItemController extends Controller
         $item_id = $request->id;
         return redirect()->route('purchase.item',['item_id' =>$item_id]);
     }
+    
+    
     public function like($item_id)
     {
-        $user = Auth::user();
-        $isLiked = $user->likedItems()->whereKey($item_id)->exists();
+        $user = auth()->user();              
+        $item = Item::findOrFail($item_id);  
         
-        if($isLiked){
-            $isLiked = $user->likedItems()->detach($item_id);
-        }else {
+        $isLiked = $user->likedItems()->whereKey($item_id)->exists();
+
+        if ($isLiked) {
+            
+            $user->likedItems()->detach($item_id);
+            $liked = false;
+        } else {
+            
             $user->likedItems()->attach($item_id);
+            $liked = true;
         }
+
+        
+        $likedCount = $item->likedUsers()->count();
+
         return response()->json([
-        'liked' => true
+            'liked' => $liked,
+            'likedCount' => $likedCount,
         ]);
 
     }

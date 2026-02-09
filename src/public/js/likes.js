@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 const btn = document.getElementById('like-btn');
-if (!btn) return;
+const count = document.getElementById('like-count');
+if (!btn || !count) return;
 btn.addEventListener('click', function () {
     const itemId = btn.dataset.itemId;
 
@@ -15,6 +16,7 @@ btn.addEventListener('click', function () {
     .then(res => res.json())
     .then(data => {
         btn.classList.toggle('liked', data.liked);
+        count.innerHTML = data.likedCount;
     });
 });
 });

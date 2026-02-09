@@ -1,0 +1,103 @@
+/* 全体 */
+.profile_edit_content {
+max-width: 800px;
+margin: 40px auto;
+padding: 0 20px;
+}
+
+/* 見出し */
+.profile_edit__heading {
+text-align: center;
+margin-bottom: 40px;
+}
+
+.profile_edit__heading h1 {
+font-size: 24px;
+font-weight: bold;
+}
+
+/* フォーム全体 */
+.profile_image form {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+/* プロフィール画像 */
+.profile_image img {
+width: 150px;
+height: 150px;
+border-radius: 50%;
+object-fit: cover;
+background-color: #ddd;
+margin-bottom: 16px;
+}
+
+/* 画像選択ボタン */
+.profile_image__button {
+border: 2px solid #ff5a5a;
+color: #ff5a5a;
+padding: 8px 20px;
+border-radius: 6px;
+cursor: pointer;
+margin-bottom: 32px;
+font-size: 14px;
+}
+
+/* file input 非表示 */
+.profile_image input[type="file"] {
+display: none;
+}
+
+/* ラベル */
+.form__label--profile,
+.form__label--rofile {
+width: 100%;
+max-width: 600px;
+font-weight: bold;
+margin-bottom: 6px;
+margin-top: 20px;
+}
+
+/* 入力欄 */
+.profile_image input[type="text"] {
+width: 100%;
+max-width: 600px;
+height: 44px;
+padding: 8px 12px;
+border: 1px solid #ccc;
+border-radius: 4px;
+font-size: 14px;
+}
+
+/* エラーメッセージ */
+.error-message {
+width: 100%;
+max-width: 600px;
+color: red;
+font-size: 13px;
+margin-top: 4px;
+}
+
+/* 更新ボタン */
+.form__button {
+width: 100%;
+max-width: 600px;
+margin-top: 40px;
+}
+
+.form__button button {
+width: 100%;
+height: 48px;
+background-color: #ff5a5a;
+color: #fff;
+font-size: 16px;
+font-weight: bold;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+}
+
+.form__button button:hover {
+opacity: 0.9;
+}

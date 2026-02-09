@@ -1,0 +1,227 @@
+/* 全体 */
+.detail {
+max-width: 1100px;
+margin: 40px auto;
+display: grid;
+grid-template-columns: 520px 1fr;
+gap: 60px;
+}
+
+/* 左：画像 */
+.detail__image {
+width: 520px;
+height: 520px;
+background: #eee;
+position: relative;
+border-radius: 2px;
+overflow: hidden;
+}
+.detail__image img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+}
+.sold {
+position: absolute;
+top: 12px;
+left: 12px;
+background: rgba(0,0,0,0.7);
+color: #fff;
+padding: 6px 10px;
+font-weight: bold;
+letter-spacing: 1px;
+border-radius: 2px;
+font-size: 14px;
+}
+
+/* 右：基本情報 */
+.detail__name {
+font-size: 28px;
+font-weight: 700;
+margin-bottom: 8px;
+}
+.detail__brand {
+color: #666;
+margin-bottom: 18px;
+}
+.detail__price {
+font-size: 22px;
+font-weight: 700;
+margin-bottom: 14px;
+}
+.detail__tax {
+font-size: 14px;
+color: #666;
+margin-left: 6px;
+}
+
+/* いいね/コメント */
+.detail__icons {
+display: flex;
+align-items: center;
+gap: 12px;
+margin: 12px 0 18px;
+}
+.detail__icon-btn {
+border: none;
+background: transparent;
+cursor: pointer;
+line-height: 1;
+padding: 0;
+}
+.detail__icon {
+font-size: 28px;
+display: inline-block;
+transform: translateY(1px);
+color: #333;
+}
+.detail__icon-btn.liked .detail__icon {
+color: #ff5b5b;
+}
+.detail__icon-count {
+width: 18px;
+text-align: center;
+font-size: 13px;
+color: #333;
+transform: translateY(6px);
+}
+
+.detail__comment-icon {
+font-size: 22px;
+transform: translateY(3px);
+margin-left: 6px;
+}
+
+/* 購入ボタン */
+.detail__buy-btn {
+display: block;
+width: 380px;
+max-width: 100%;
+text-align: center;
+background: #ff5b5b;
+color: #fff;
+text-decoration: none;
+padding: 14px 0;
+border-radius: 3px;
+font-weight: 700;
+margin: 10px 0 26px;
+}
+
+/* セクション */
+.detail__section {
+margin-top: 28px;
+}
+.detail__item-title {
+font-size: 20px;
+font-weight: 700;
+margin-bottom: 14px;
+}
+.detail__desc {
+line-height: 1.8;
+color: #333;
+}
+
+/* 商品情報 */
+.detail__info {
+display: grid;
+gap: 12px;
+}
+.detail__info-row {
+display: grid;
+grid-template-columns: 120px 1fr;
+align-items: center;
+gap: 14px;
+}
+.detail__info-label {
+font-weight: 700;
+color: #333;
+}
+.detail__pill {
+display: inline-block;
+background: #eee;
+padding: 6px 14px;
+border-radius: 999px;
+font-size: 13px;
+margin-right: 8px;
+}
+
+/* コメント一覧 */
+.detail__comments {
+display: grid;
+gap: 14px;
+margin-bottom: 18px;
+}
+.detail__comment-user {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-bottom: 6px;
+}
+.detail__avatar {
+width: 38px;
+height: 38px;
+border-radius: 50%;
+background: #ddd;
+}
+.detail__username {
+font-weight: 700;
+}
+.detail__comment-body {
+background: #eee;
+padding: 12px 14px;
+border-radius: 3px;
+color: #333;
+}
+
+/* コメントフォーム */
+.detail__comment-form {
+margin-top: 10px;
+}
+.detail__form-label {
+display: block;
+font-weight: 700;
+margin-bottom: 8px;
+}
+.detail__textarea {
+width: 380px;
+max-width: 100%;
+height: 140px;
+border: 1px solid #999;
+padding: 10px;
+border-radius: 3px;
+resize: vertical;
+}
+.detail__comment-btn {
+width: 380px;
+max-width: 100%;
+background: #ff5b5b;
+color: #fff;
+border: none;
+padding: 14px 0;
+border-radius: 3px;
+font-weight: 700;
+margin-top: 16px;
+cursor: pointer;
+}
+.detail__error {
+color: #ff5b5b;
+font-size: 13px;
+margin-top: 6px;
+}
+
+/* レスポンシブ */
+@media (max-width: 960px) {
+.detail {
+grid-template-columns: 1fr;
+gap: 24px;
+padding: 0 18px;
+}
+.detail__image {
+width: 100%;
+height: 320px;
+}
+}
+
+
+
