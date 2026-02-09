@@ -37,8 +37,8 @@ MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=sample@laravel.jp
 MAIL_FROM_NAME="${APP_NAME}"
 
-STRIPE_KEY=pk_test_*************
-STRIPE_SECRET=sk_test_**********
+STRIPE_KEY=pk_test_51SnHHkRom2OMSwxZzk5jb0RenZjgcBqUzp0NIbxa4Brh7NhpTx69Sv0k6qyfjRCHd7z5uevVwZ7tJLbTc3GjEP4k00EyoOcyy1
+STRIPE_SECRET=sk_test_51SnHHkRom2OMSwxZ4wxM4rzShi9H1QZ39kbjntxdBz07x3lwdxDoqXrWKdZYKJi6iV98Rs4iXwEF2OA7nSQ96LqO00wrqIVDOF
 
 5. アプリケーションキーの作成
 ``` bash
