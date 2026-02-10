@@ -22,7 +22,6 @@ border-bottom: 1px solid #ddd;
 padding-bottom: 8px;
 }
 
-/* 画像選択エリア */
 label[for="item_image"] {
 display: inline-block;
 padding: 10px 24px;
@@ -33,17 +32,14 @@ cursor: pointer;
 margin: 16px 0;
 }
 
-/* inputは非表示 */
 input.image {
 display: none;
 }
 
-/* checkbox自体は非表示 */
 input[type="checkbox"] {
 display: none;
 }
 
-/* カテゴリーラベル */
 input[type="checkbox"] + label {
 display: inline-block;
 padding: 6px 14px;
@@ -55,7 +51,6 @@ color: #ff5a5a;
 cursor: pointer;
 }
 
-/* 選択時 */
 input[type="checkbox"]:checked + label {
 background-color: #ff5a5a;
 color: #fff;

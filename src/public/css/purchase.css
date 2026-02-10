@@ -7,7 +7,6 @@ grid-template-columns: 1fr 360px;
 gap: 40px;
 }
 
-/* 左：商品＋フォーム */
 .purchase__left {
 border-top: 1px solid #ddd;
 padding-top: 20px;
@@ -40,7 +39,6 @@ font-size: 18px;
 font-weight: 700;
 }
 
-/* セクション（支払方法／配送先） */
 .purchase__section {
 padding: 18px 0;
 border-top: 1px solid #ddd;
@@ -82,14 +80,12 @@ font-size: 14px;
 color: #333;
 }
 
-/* エラー */
 .form__error {
 color: #e64545;
 font-size: 13px;
 margin-top: 8px;
 }
 
-/* 右：サマリー */
 .purchase__right {
 align-self: start;
 }
@@ -126,7 +122,6 @@ text-align: right;
 font-weight: 700;
 }
 
-/* 購入ボタン */
 .button-purchase {
 display: block;
 width: 100%;

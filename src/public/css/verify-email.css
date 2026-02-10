@@ -1,0 +1,60 @@
+
+.verify {
+min-height: calc(100vh - 80px);
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 24px;
+text-align: center;
+background-color: #fff;
+}
+
+
+.verigy_message {
+font-size: 16px;
+line-height: 1.8;
+color: #333;
+max-width: 600px;
+}
+
+
+.mail-verify__link {
+margin: 16px 0;
+}
+
+
+.mail-verify__link .link {
+display: inline-block;
+padding: 12px 32px;
+background-color: #e0e0e0;
+color: #333;
+font-size: 14px;
+font-weight: bold;
+border-radius: 6px;
+text-decoration: none;
+transition: background-color 0.2s ease;
+}
+
+.mail-verify__link .link:hover {
+background-color: #d5d5d5;
+}
+
+
+.verify form {
+margin-top: 8px;
+}
+
+
+.verify .btn {
+background: none;
+border: none;
+color: #3b82f6;
+font-size: 14px;
+cursor: pointer;
+padding: 0;
+}
+
+.verify .btn:hover {
+text-decoration: underline;
+}
